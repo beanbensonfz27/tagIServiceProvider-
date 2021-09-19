@@ -1,0 +1,45 @@
+#include <Constants.au3>
+
+Opt("MustDeclareVars", True)
+
+If @OSVersion <> "WIN_10" Then Exit MsgBox($MB_SYSTEMMODAL, "", "This script only runs on Win 10")
+
+; Instanciation objects
+Local $CLSID_ImmersiveShell = "{c2f03a33-21f5-47fa-b4bb-156362a2f239}"
+Local $IID_IUnknown = "{00000000-0000-0000-c000-000000000046}"
+Local $IID_IServiceProvider = "{6D5140C1-7436-11CE-8034-00AA006009FA}"
+Local $tIID_IServiceProvider = __uuidof($IID_IServiceProvider)
+Local $tagIServiceProvider  = _
+    "QueryService hresult(struct*;struct*;ptr*);"
+
+; VirtualDesktopManagerInternal object
+Const Enum $eLeftDirection = 3, $eRightDirection
+Local $CLSID_VirtualDesktopManagerInternal = "{C5E0CDCA-7B6E-41B2-9FC4-D93975CC467B}"
+Local $tCLSID_VirtualDesktopManagerInternal = __uuidof($CLSID_VirtualDesktopManagerInternal)
+Local $IID_IVirtualDesktopManagerInternal =  "{F31574D6-B682-4CDC-BD56-1827860ABEC6}"
+Local $tIID_IVirtualDesktopManagerInternal = __uuidof($IID_IVirtualDesktopManagerInternal)
+Local $tagIVirtualDesktopManagerInternal = _
+    "GetCount hresult(int*);" & _
+    "MoveViewToDesktop hresult(ptr;ptr);" & _
+    "CanViewMoveDesktops hresult(ptr;bool*);" & _
+    "GetCurrentDesktop hresult(ptr*);" & _
+    "GetDesktops hresult(ptr*);" & _
+    "GetAdjacentDesktop hresult(ptr;int;ptr*);" & _
+    "SwitchDesktop hresult(ptr);" & _
+    "CreateDesktopW hresult(int*);" & _
+    "RemoveDesktop hresult(ptr;ptr);" & _
+    "FindDesktop hresult(struct*;ptr*);"
+
+; ApplicationViewCollection object
+Local $CLSID_IApplicationViewCollection = "{1841C6D7-4F9D-42C0-AF41-8747538F10E5}"
+Local $tCLSID_IApplicationViewCollection = __uuidof($CLSID_IApplicationViewCollection)
+Local $IID_IApplicationViewCollection = "{1841C6D7-4F9D-42C0-AF41-8747538F10E5}"
+Local $tIID_IApplicationViewCollection = __uuidof($IID_IApplicationViewCollection)
+Local $tagIApplicationViewCollection = _
+    "GetViews hresult(struct*);" & _
+    "GetViewsByZOrder hresult(struct*);" & _
+    "GetViewsByAppUserModelId hresult(wstr;struct*);" & _
+    "GetViewForHwnd hresult(hwnd;ptr*);" & _
+    "GetViewForApplication hresult(ptr;ptr*);" & _
+    "GetViewForAppUserModelId hresult(wstr;int*);" & _
+    "GetViewInFocus hresult(ptr*);
